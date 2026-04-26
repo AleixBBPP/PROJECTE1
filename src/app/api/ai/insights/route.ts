@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 import { buildInsightPrompt } from '@/lib/ai/insight-prompt';
@@ -11,7 +11,7 @@ const insightSchema = z.object({
   goalsProgress: z.array(z.object({ goal: z.string(), progressPct: z.number().min(0).max(100) }))
 });
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
     const body = await req.json();
     const payload = insightSchema.parse(body);
